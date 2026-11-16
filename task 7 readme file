@@ -1,0 +1,86 @@
+# MEMORY AND SCALABILITY — FSC
+
+## Contents
+--------
+`memory_and_scalability_fsc.py`  
+Reproducible 2D memory and scalability experiment script
+
+`README.md`  
+Instructions and explanation of the experiment
+
+`task7_results/`  
+Generated memory measurements, plots and results
+
+## Model used
+----------
+This experiment studies memory requirements and scalability for a
+two-dimensional particle system using NumPy arrays.
+
+The particle position array has shape `(N, 2)`, where each particle
+has two coordinates: x and y.
+
+The experiment compares:
+- `float64` and `float32` storage.
+- Memory usage of particle position arrays.
+- Theoretical memory requirements of pairwise displacement arrays.
+- How memory requirements change as the number of particles increases.
+
+The pairwise displacement array has shape `(N, N, 2)` and its
+memory requirement is estimated using:
+
+`Memory = N × N × 2 × itemsize`
+
+Large pairwise arrays are estimated mathematically rather than
+allocated, to avoid unnecessary memory usage.
+
+## Run on Windows / VS Code
+------------------------
+1. Open the project folder in VS Code.
+2. Open Terminal -> New Terminal.
+3. Install dependencies:
+
+      python -m pip install numpy matplotlib
+
+4. Run the experiment:
+
+      python memory_and_scalability_fsc.py
+
+5. Open the `task7_results/` folder to view the generated outputs.
+
+## Output files
+------------
+`memory_measurements.csv`  
+Memory measurements for the particle position arrays.
+
+`pairwise_memory_estimates.csv`  
+Estimated memory requirements of pairwise displacement arrays
+for different particle counts and precisions.
+
+`position_memory_comparison.png`  
+Graph comparing memory requirements for `float32` and `float64`
+position arrays.
+
+`pairwise_memory_scalability.png`  
+Graph showing how pairwise displacement memory increases as
+the number of particles increases.
+
+`task7_environment.txt`  
+Python, NumPy, Matplotlib and platform details.
+
+## Interpretation note
+------------------
+A two-dimensional position array requires memory proportional to
+the number of particles, O(N).
+
+A pairwise displacement array has shape `(N, N, 2)`, so its
+memory requirement grows quadratically, O(N²).
+
+For the same array shape, `float32` uses half the memory of
+`float64`, although it provides lower numerical precision.
+
+Large pairwise arrays can require substantial memory as N increases.
+Therefore, theoretical memory estimates are used for larger particle
+counts instead of allocating very large arrays.
+
+The results demonstrate how numerical precision and array dimensions
+affect memory usage and the scalability of a 2D particle simulation.
